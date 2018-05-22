@@ -145,6 +145,7 @@
                         message: '提交成功',
                         type: 'success'
                       });
+                      this.$router.push('/login');
                     };
                   }).catch((error)=>{
                     console.log(error)

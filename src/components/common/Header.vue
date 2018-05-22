@@ -19,14 +19,14 @@
       <li class="f_li">
         <router-link to="/messages" class="f">留言板</router-link>
       </li>
-      <li class="f_li" >
-        <router-link to="/login" class="f">会员登陆/注册</router-link>
-      </li>
       <li class="f_li">
         <router-link to="/personal" class="f">个人中心</router-link>
       </li>
       <li class="f_li">
         <router-link to="/cart" class="f">购物车</router-link>
+      </li>
+      <li class="f_li" v-if="!username">
+        <router-link to="/login" class="f">会员登陆/注册</router-link>
       </li>
       <li class="user" v-if="username">
         <el-dropdown trigger="click" @command="handleCommand">

@@ -42,7 +42,6 @@ router.post('/login', (req, res) => {
 });
 //会员注册接口
 router.post('/register',(req,res)=>{
-  console.log(req.body);
   pool.query($sql.member.insertOne,[req.body.user_name,req.body.user_pw,req.body.user_sex,req.body.user_birth,req.body.user_tel],function(error,results){
     if(error){
       res.send("注册失败：", error);
@@ -150,6 +149,17 @@ router.get('/order',(req,res)=>{
     }
   })
 });
+//添加订单
+router.post('/order',(req,res)=>{
+  var params = req.body;
+  pool.query($sql.order.insertOne,[params.order_number,params.order_name,params.order_address,params.order_tel,params.order_price,params.order_context,params.order_user,params.order_state,params.order_pay],function (error,results) {
+    if(error){
+      res.send("添加失败：", error);
+    }else {
+      res.send('1');
+    }
+  })
+});
 //订单删除接口
 router.get('/deleteorder',(req,res)=>{
   var sql = $sql.order.deleteOne;
@@ -157,6 +167,18 @@ router.get('/deleteorder',(req,res)=>{
   pool.query(sql,function(error,results){
     if(error){
       res.send("删除失败：", error);
+    }else{
+      res.send('1');
+    }
+  })
+});
+//订单支付接口
+router.get('/pay',(req,res)=>{
+  var sql = $sql.order.updateOne;
+  sql += `'${req.query.order_number}'`;
+  pool.query(sql,function(error,results){
+    if(error){
+      res.send("支付失败：", error);
     }else{
       res.send('1');
     }

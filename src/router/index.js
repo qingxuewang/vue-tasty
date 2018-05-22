@@ -41,7 +41,7 @@ export default new Router({
       path:'/order',component:Order
     },
     {
-      path:'/pay',component:Pay
+      path:'/pay/:order_number',component:Pay
     },
     {
       path: '/login', component: Login

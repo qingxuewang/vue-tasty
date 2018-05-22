@@ -7,7 +7,7 @@
           <el-button type="primary" @click="handleAdd" round style="margin-left: 700px">我要留言</el-button>
           <div class="news" v-for="message in MessagesList">
             <h3>{{message.message_title}}</h3>
-            <p>”{{message.message_content}}</p>
+            <p>{{message.message_content}}</p>
             <hr />
           </div>
         </div>
@@ -83,12 +83,15 @@
                       message_title:this.addForm.message_title,
                       message_content:this.addForm.message_content,
                     };
+                    console.log(data);
                     axios.post('/api/member/messages',data).then((response)=>{
                       this.$message({
                         message: '提交成功',
                         type: 'success'
                       });
                       this.addFormVisible = false;
+                      this.addForm.message_title='';
+                      this.addForm.message_content='';
                       this.getMessages();
                     }).catch((error)=>{
                       console.log(error)
@@ -133,5 +136,6 @@
     font-size: 16px;
     line-height: 28px;
     margin-top: 15px;
+    margin-bottom: 15px;
   }
 </style>

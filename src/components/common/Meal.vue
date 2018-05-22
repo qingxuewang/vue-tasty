@@ -2,7 +2,7 @@
     <div class="Meal_time">
       <ul>
         <li class="mt m_bre">
-          <a class="track" href="">
+          <a class="track" href="javascript:void(0);">
             <div class="mt_box_1">
               <img class="meal_ico" src="../../assets/01.png" alt="" />
               <div class="meal_info">
@@ -13,7 +13,7 @@
           </a>
         </li>
         <li class="mt m_bre">
-          <a class="track" href="">
+          <a class="track" href="javascript:void(0);">
             <div class="mt_box_1">
               <img class="meal_ico" src="../../assets/02.png" alt="" />
               <div class="meal_info">
@@ -25,7 +25,7 @@
           </a>
         </li>
         <li class="mt m_bre">
-          <a class="track" href="">
+          <a class="track" href="javascript:void(0);">
             <div class="mt_box_1">
               <img class="meal_ico" src="../../assets/03.png" alt="" />
               <div class="meal_info">
@@ -36,7 +36,7 @@
           </a>
         </li>
         <li class="mt m_bre">
-          <a class="track" href="">
+          <a class="track" href="javascript:void(0);">
             <div class="mt_box_1">
               <img class="meal_ico" src="../../assets/04.png" alt="" />
               <div class="meal_info">

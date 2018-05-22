@@ -86,7 +86,12 @@
             this.$router.push('/foods');
           },
           order(){
-            this.$router.push('/order');
+            let flag =JSON.parse(sessionStorage.getItem('user'));
+            if (flag===null){
+              this.$router.push('/login');
+            }else {
+              this.$router.push('/order');
+            }
           }
         },
         computed: {
@@ -114,7 +119,7 @@
     background-size: 100% 100%;
   }
   .empty{
-    height: 80px;
+    height: 285px;
     text-align: center;
   }
 </style>

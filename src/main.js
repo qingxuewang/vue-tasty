@@ -9,19 +9,19 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 import store from './store/index'
-Vue.config.productionTip = false
-
-// router.beforeEach((to, from, next) => {
-//   if (to.path == '/login') {
-//     sessionStorage.removeItem('user');
-//   }
-//   let user = JSON.parse(sessionStorage.getItem('user'));
-//   if (!user && to.path != '/login') {
-//     next({ path: '/login' })
-//   } else {
-//     next()
-//   }
-// })
+Vue.config.productionTip = false;
+//路由拦截
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login') {
+    sessionStorage.removeItem('user');
+  }
+  let user = JSON.parse(sessionStorage.getItem('user'));
+  if (!user && to.path == '/personal') {
+    next({ path: '/login' })
+  } else {
+    next()
+  }
+});
 
 /* eslint-disable no-new */
 new Vue({

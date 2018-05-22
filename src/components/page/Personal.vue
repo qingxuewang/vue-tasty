@@ -33,7 +33,7 @@
                 </el-form>
               </el-tab-pane>
               <el-tab-pane label="我的订单" name="second">
-                <el-table :data="tableData" style="width: 100%;margin-top: 25px" >
+                <el-table :data="tableData" style="width: 100%;" >
                   <el-table-column  label="日期" min-width="40">
                     <template slot-scope="scope" >
                       <span>{{scope.row.order_date | getData}}</span>
@@ -51,6 +51,7 @@
                       <el-popover trigger="hover" placement="top">
                         <p>姓名: {{ scope.row.order_user }}</p>
                         <p>电话: {{ scope.row.order_tel }}</p>
+                        <p>编号: {{ scope.row.order_number }}</p>
                         <p>地址: {{ scope.row.order_address }}</p>
                         <div slot="reference" class="name-wrapper">
                           <el-tag size="medium">{{ scope.row.order_user }}</el-tag>
@@ -75,6 +76,11 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                <!--工具条-->
+                <el-col :span="24" class="toolbar" style="margin-top: 5px">
+                  <el-pagination background layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="5" :total="this.Data.length" style="float:right;">
+                  </el-pagination>
+                </el-col>
               </el-tab-pane>
               <el-tab-pane label="密码修改" name="third">
                 <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm" style="width: 400px;
@@ -137,6 +143,7 @@
           };
             return {
               activeName: 'first',
+              page: 1,
               form: {
                 name: '',
                 phone: '',
@@ -173,7 +180,8 @@
                   { min: 6, max: 10, message: '长度在 6 到 10 个字符', trigger: 'blur' }
                 ],
               },
-              tableData:[]
+              tableData:[],
+              Data:[]
             }
         },
         methods: {
@@ -257,10 +265,19 @@
               order_user: name
             }})
               .then(response=>{
-                this.tableData = response.data.reverse();
+                // this.tableData = response.data.reverse();
+                this.Data = response.data.reverse();
+                this.show();
               }).catch(error=>{
               console.log(error);
             })
+          },
+          handleCurrentChange(val) {
+            this.page = val;
+            this.show();
+          },
+          show(){
+              this.tableData = this.Data.slice(5*(this.page-1),5*this.page);
           },
           //删除
           handleDel: function (row) {
@@ -288,6 +305,13 @@
               });
             })
           },
+          //付款
+          handleEdit:function (row) {
+            console.log(row.order_number);
+            this.$router.push({
+              path: `/pay/${row.order_number}`,
+            })
+          }
         },
         computed: {
         },

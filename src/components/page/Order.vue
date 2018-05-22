@@ -63,6 +63,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import Header from '../common/Header.vue'
   import Footer from '../common/Footer.vue'
   import Meal from '../common/Meal.vue'
@@ -107,16 +108,55 @@
       },
       my(){
         var a=JSON.parse(sessionStorage.getItem('user'));
-        console.log(a);
+        // console.log(a);
           this.form.name = a[0].user_name,
           this.form.tel = a[0].user_tel,
           this.form.address = a[0].user_address
+      },
+      number(){
+        function p(s) {
+          return s < 10 ? '0' + s: s;
+        }
+        var myDate = new Date();
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth()+1;
+        var date = myDate.getDate();
+        var h = myDate.getHours();
+        var m = myDate.getMinutes();
+        var s = myDate.getSeconds();
+        var now = year+p(month)+p(date)+p(h)+p(m)+p(s);
+        return now;
       },
       //提交订单按钮
         submitForm(){
           this.$refs.form.validate((valid) => {
             if (valid) {
-              this.$router.push('/pay');
+              var data = {
+                order_name:this.form.name,
+                order_address:this.form.address,
+                order_context:this.cartList.map(item=>{
+                  return item.foods_name+'*'+item.foodCount;
+                }).toString(),
+                order_number:this.number(),
+                order_tel:this.form.tel,
+                order_price:this.totalPrice,
+                order_user:JSON.parse(sessionStorage.getItem('user'))[0].user_name,
+                order_state:0,
+                order_pay:0,
+              };
+              console.log(data);
+              axios.post('/api/member/order',data).then((response)=>{
+                this.$message({
+                  message: '提交成功',
+                  type: 'success'
+                });
+                this.$router.push({
+                  path: `/pay/${data.order_number}`,
+                });
+                this.clear();
+              }).catch((error)=>{
+                console.log(error)
+              })
             }
         })
       },

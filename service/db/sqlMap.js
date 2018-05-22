@@ -12,15 +12,16 @@ var sqlMap = {
     member:{
       selectOne:'select * from t_user where user_name =',
       insertOne:'insert into t_user(user_name,user_pw,user_sex,user_birth,user_tel,user_address) value (?,?,?,?,?,null)',
-      member:'update t_user set '
+      updateOne:'update t_user set '
     },
   notice:{
     select_notice:'select * from t_notice',
   },
   order:{
     select_order:'select * from t_order where order_user=',
+    insertOne:'insert into t_order (order_number,order_name,order_address,order_tel,order_price,order_context,order_user,order_state,order_pay)  values (?,?,?,?,?,?,?,?,?)',
     deleteOne:'delete from t_order where order_id=',
-    updateOne:'update t_order set order_pay = "1" where order_id = ',
+    updateOne:'update t_order set order_pay = "1" where order_number = ',
   }
 }
 
