@@ -2,7 +2,6 @@ import * as Types from './mutations-type.js';
 const mutations = {
   //添加购物车(添加的商品)
   [Types.ADD_CART](state,food){
-  //  food是添加的一本书，如果有这样的书，累加的是数量，古国没有数量为1，放到cartList中
     let product = state.cartList.find(item=> item.foods_id === food.foods_id);
     if (product){
       product.foodCount += 1;
